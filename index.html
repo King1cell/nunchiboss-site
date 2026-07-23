@@ -50,6 +50,9 @@
   .nav-links{display:flex; gap:28px; margin-left:8px}
   .nav-links a{text-decoration:none; color:var(--ink-soft); font-size:.98rem; transition:color .15s}
   .nav-links a:hover{color:var(--ink)}
+  /* 후원 — 내부 앵커들 사이의 외부 링크. 다운로드 CTA와 경쟁하지 않게 조용히 두되 hover만 따뜻하게 */
+  .nav-links .nav-sponsor{white-space:nowrap}
+  .nav-links .nav-sponsor:hover{color:var(--accent-dark)}
   .nav-spacer{flex:1}
   .nav-cta{
     font-family:'Jua'; font-size:.95rem;
@@ -254,6 +257,8 @@
     <a href="#how" data-i18n="nav_how">사용법</a>
     <a href="#features" data-i18n="nav_ft">기능</a>
     <a href="#faq">FAQ</a>
+    <!-- 후원: 외부 결제 페이지(Ko-fi). footer에도 있지만 헤더가 노출이 확실하다 -->
+    <a class="nav-sponsor" href="https://ko-fi.com/nunchiboss" target="_blank" rel="noopener noreferrer" data-i18n="nav_sponsor">☕ 후원하기</a>
   </div>
   <div class="nav-spacer"></div>
   <div class="langs">
@@ -536,6 +541,7 @@
     brand: 'NunchiBoss',
     nav_how: 'How it works',
     nav_ft: 'Features',
+    nav_sponsor: '☕ Support',
     nav_cta: 'Download',
     hero_h1: 'Held it in again today?<br><span class="stroke">Time to get that apology.</span>',
     hero_sub: 'Put the boss on your screen, click away, collect apologies.',
