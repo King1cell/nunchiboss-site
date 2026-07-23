@@ -53,6 +53,9 @@
   /* 후원 — 내부 앵커들 사이의 외부 링크. 다운로드 CTA와 경쟁하지 않게 조용히 두되 hover만 따뜻하게 */
   .nav-links .nav-sponsor{white-space:nowrap}
   .nav-links .nav-sponsor:hover{color:var(--accent-dark)}
+  /* 좁은 폭(≤700px)에선 헤더 후원 링크를 숨긴다 — 안 그러면 nav가 넘쳐 페이지 전체가
+     가로 스크롤된다(560~650px 구간에서 확인). footer 후원 링크는 남아 접근 경로는 유지 */
+  @media (max-width:700px){ .nav-links .nav-sponsor{display:none} }
   .nav-spacer{flex:1}
   .nav-cta{
     font-family:'Jua'; font-size:.95rem;
