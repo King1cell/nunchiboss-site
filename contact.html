@@ -113,7 +113,14 @@
     send:'Send', back:'← Back to NunchiBoss',
     ok:'Sent. Thank you!', err_val:'Please write a message and pass the check.', err_net:'Something went wrong. Please try again.'
   };
-  const KO = {}; document.querySelectorAll('[data-i18n]').forEach(el=>KO[el.dataset.i18n]=el.innerHTML);
+  // 상태 메시지(ok/err_*)는 DOM에 대응 요소가 없어 KO를 직접 채운다.
+  // 그다음 DOM의 data-i18n 값으로 나머지를 덮어쓴다.
+  const KO = {
+    ok: '보냈습니다. 감사합니다!',
+    err_val: '내용을 작성하고 로봇 확인을 통과해주세요.',
+    err_net: '문제가 발생했습니다. 잠시 후 다시 시도해주세요.',
+  };
+  document.querySelectorAll('[data-i18n]').forEach(el=>KO[el.dataset.i18n]=el.innerHTML);
   const TITLES={ko:document.title, en:'Contact — NunchiBoss'};
   let lang = localStorage.getItem('sajoe_lang') || 'ko';
   function t(k){ return (lang==='en' && EN[k]!==undefined)?EN[k]:KO[k]; }
