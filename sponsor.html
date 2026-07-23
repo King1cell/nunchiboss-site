@@ -42,6 +42,14 @@
   .opt.soon{opacity:.6; cursor:default}
   .opt.soon:hover{border-color:var(--line); transform:none}
 
+  /* 후원금의 쓰임 — 막연한 "지원해주세요"보다 구체적인 편이 신뢰를 준다 */
+  .uses{margin-top:32px; text-align:left}
+  .uses h2{font-size:1.02rem; margin-bottom:12px}
+  .uses ul{list-style:none; display:flex; flex-direction:column; gap:9px}
+  .uses li{font-size:.9rem; color:var(--ink-soft); padding-left:22px; position:relative}
+  .uses li::before{content:'☕'; position:absolute; left:0; font-size:.85rem}
+  .uses li b{color:var(--ink); font-family:'Jua'; font-weight:400}
+
   .note{background:var(--bg-soft); border-radius:12px; padding:14px 16px; font-size:.82rem; color:var(--ink-soft); margin-top:30px; text-align:left}
   .note b{color:var(--ink); font-family:'Jua'; font-weight:400}
   .back{display:inline-block; margin-top:26px; text-decoration:none; font-family:'Jua'}
@@ -56,16 +64,16 @@
   </nav>
 
   <div class="wrap">
-    <h1 data-i18n="h1">☕ 개발을 후원해 주세요</h1>
-    <p class="sub" data-i18n="sub">눈치상사는 무료입니다. 후원은 개발과 Windows 버전 작업에 쓰입니다.</p>
+    <h1 data-i18n="h1">저기… 커피 한 잔만 부탁드려도 되겠습니까?</h1>
+    <p class="sub" data-i18n="sub">평소엔 제가 잔소리하는 쪽이었는데, 오늘은 제가 아쉬운 쪽이네요.<br>눈치상사는 앞으로도 <b>계속 무료</b>입니다.</p>
 
     <div class="opts">
       <!-- 해외 결제 (Ko-fi) -->
       <a class="opt" href="https://ko-fi.com/nunchiboss" target="_blank" rel="noopener noreferrer">
         <span class="ico">☕</span>
         <span class="txt">
-          <b data-i18n="kofi_t">Ko-fi</b>
-          <small data-i18n="kofi_d">해외 카드·PayPal · 단발 후원</small>
+          <b data-i18n="kofi_t">커피 한 잔 사주기</b>
+          <small data-i18n="kofi_d">Ko-fi · 해외 카드·PayPal · 한 번만, 부담 없이</small>
         </span>
         <span class="arrow">→</span>
       </a>
@@ -74,15 +82,24 @@
       <div class="opt soon">
         <span class="ico">🇰🇷</span>
         <span class="txt">
-          <b data-i18n="kr_t">국내 결제</b>
-          <small data-i18n="kr_d">카드·간편결제 · 준비 중입니다</small>
+          <b data-i18n="kr_t">국내 카드·간편결제</b>
+          <small data-i18n="kr_d">준비 중입니다 — 곧 열겠습니다</small>
         </span>
       </div>
     </div>
 
+    <div class="uses">
+      <h2 data-i18n="u_title">이 커피 한 잔이 하는 일</h2>
+      <ul>
+        <li data-i18n="u1"><b>Windows 버전</b> — 가장 많이 요청받고 있습니다</li>
+        <li data-i18n="u2"><b>표정과 대사 추가</b> — 상사가 더 다양하게 굽신거리도록</li>
+        <li data-i18n="u3"><b>배포 유지비</b> — 코드서명·공증처럼 매년 나가는 비용</li>
+      </ul>
+    </div>
+
     <div class="note">
-      <b data-i18n="n_title">알아두실 점</b><br>
-      <span data-i18n="n_body">후원은 <b>전적으로 외부 결제 페이지</b>에서 이뤄집니다. 앱은 결제를 처리하지 않으며, 후원 버튼은 브라우저를 열 뿐입니다 — <b>앱은 여전히 아무것도 외부로 전송하지 않습니다.</b> 후원은 대가 없는 자발적 지원이며, 후원 여부와 관계없이 모든 기능을 무료로 쓸 수 있습니다.</span>
+      <b data-i18n="n_title">왜 후원을 받나요?</b><br>
+      <span data-i18n="n_body">눈치상사에는 <b>광고가 없고, 계정도 없고, 데이터를 모아 팔지도 않습니다.</b> 앱은 네트워크 통신 자체를 하지 않습니다. 그렇게 만들기로 했으니, 남은 수입은 후원뿐입니다.<br><br><b>후원하지 않으셔도 모든 기능은 그대로 전부 무료입니다.</b> 부담 갖지 마세요 — 써주시는 것만으로도 충분합니다. 결제는 전적으로 외부 페이지에서 이뤄지며, 이 버튼은 브라우저를 열 뿐입니다.</span>
     </div>
 
     <a class="back" href="./index.html" data-i18n="back">← 눈치상사로 돌아가기</a>
@@ -90,11 +107,16 @@
 
 <script>
   const EN = {
-    h1:'☕ Support development', sub:'NunchiBoss is free. Your support funds development and the Windows version.',
-    kofi_t:'Ko-fi', kofi_d:'International cards · PayPal · one-time',
-    kr_t:'Korean payment', kr_d:'Cards & local wallets · coming soon',
-    n_title:'Good to know',
-    n_body:'Payment happens <b>entirely on an external page</b>. The app never processes payments — the button only opens your browser, and <b>the app still sends nothing over the network.</b> Support is voluntary with nothing owed in return; every feature stays free whether you donate or not.',
+    h1:'Um… could you spare me one coffee?',
+    sub:'I\'m usually the one lecturing you. Today I\'m the one asking.<br>NunchiBoss stays <b>free, always</b>.',
+    kofi_t:'Buy me a coffee', kofi_d:'Ko-fi · international cards & PayPal · one-time, no strings',
+    kr_t:'Korean cards & wallets', kr_d:'Coming soon',
+    u_title:'What this coffee actually does',
+    u1:'<b>The Windows version</b> — the most requested thing by far',
+    u2:'<b>More faces and lines</b> — so the boss can grovel in new ways',
+    u3:'<b>Keeping it shipped</b> — code signing, notarization, the yearly costs',
+    n_title:'Why ask for support at all?',
+    n_body:'NunchiBoss has <b>no ads, no accounts, and we never collect or sell your data.</b> The app makes no network calls at all. That was the whole point — which leaves support as the only way this gets funded.<br><br><b>Everything stays free whether you give or not.</b> Please don\'t feel obliged — using it is already enough. Payment happens entirely on an external page; this button only opens your browser.',
     back:'← Back to NunchiBoss'
   };
   const KO = {};
