@@ -14,7 +14,7 @@
     --line:#E4E1DC; --accent:#FF5A3C; --accent-dark:#E03E20;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Gowun Dodum',sans-serif; background:var(--bg); color:var(--ink); line-height:1.6}
+  body{font-family:'Gowun Dodum',sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; word-break:keep-all; overflow-wrap:break-word}
   h1,h2,.jua{font-family:'Jua',sans-serif; font-weight:400}
   a{color:var(--accent-dark)}
   nav{display:flex; align-items:center; gap:20px; padding:16px 32px; border-bottom:1px solid var(--line)}
@@ -65,7 +65,7 @@
 
   <div class="wrap">
     <h1 data-i18n="h1">커피 한 잔이 다음 눈치 시리즈가 됩니다</h1>
-    <p class="sub" data-i18n="sub">평소 같으면 제가 시켰겠지만, 이번엔 제안입니다.<br>눈치상사는 앞으로도 <b>계속 무료</b>고요.</p>
+    <p class="sub" data-i18n="sub">만든 사람은 둘이에요.<br>눈치상사는 앞으로도 <b>계속 무료</b>고, 후원은 순전히 마음이 내킬 때만요.</p>
 
     <div class="opts">
       <!-- 해외 결제 (Ko-fi) -->
@@ -89,7 +89,7 @@
     </div>
 
     <div class="uses">
-      <h2 data-i18n="u_title">후원은 이렇게 쓰입니다</h2>
+      <h2 data-i18n="u_title">당신의 커피 한 잔은 여기 쓰입니다</h2>
       <ul>
         <li data-i18n="u1"><b>다음 눈치 시리즈</b> — 새 캐릭터, 새 상황으로 이어집니다</li>
         <li data-i18n="u2"><b>Windows 버전</b> — 가장 많이 요청받고 있습니다</li>
@@ -100,8 +100,10 @@
 
     <div class="note">
       <b data-i18n="n_title">왜 후원인가요?</b><br>
-      <span data-i18n="n_body">눈치상사에는 <b>광고가 없고, 계정도 없고, 데이터를 모아 팔지도 않습니다.</b> 앱은 네트워크 통신 자체를 하지 않습니다. <b>광고와 데이터 대신 후원을 택했습니다.</b><br><br>후원하지 않으셔도 <b>모든 기능은 그대로 전부 무료</b>입니다. 써주시는 것만으로도 충분합니다. 결제는 전적으로 외부 페이지에서 이뤄지며, 이 버튼은 브라우저를 열 뿐입니다.</span>
+      <span data-i18n="n_body">눈치상사에는 <b>광고가 없고, 계정도 없고, 데이터를 모아 팔지도 않습니다.</b> 앱은 네트워크 통신 자체를 하지 않습니다. <b>광고와 데이터 대신 후원을 택했습니다.</b><br><br>후원하지 않으셔도 <b>모든 기능은 그대로 전부 무료</b>입니다. 써주시는 것만으로도 충분합니다. 결제는 전적으로 외부 페이지에서 이뤄지며, 이 버튼은 브라우저를 열 뿐입니다.<br><br>후원해주시면 저희한텐 큰 힘이 되지만, 사실 제일 먼저 닿는 건 <b>'내가 좋아하는 걸 계속 만들게 도왔다'</b>는 작은 뿌듯함일 거예요.</span>
     </div>
+
+    <p class="sub" data-i18n="close" style="margin:26px 0 0">후원하든 안 하든, 오늘도 상사는 열심히 굽신댈 거예요. 고마워요.</p>
 
     <a class="back" href="./index.html" data-i18n="back">← 눈치상사로 돌아가기</a>
   </div>
@@ -109,16 +111,17 @@
 <script>
   const EN = {
     h1:'One coffee becomes the next Nunchi app',
-    sub:'Normally I\'d just order you to. This time it\'s a proposal.<br>NunchiBoss stays <b>free, always</b>.',
+    sub:'Just two of us make this.<br>NunchiBoss stays <b>free, always</b> — support only if you feel like it.',
     kofi_t:'Buy me a coffee', kofi_d:'Ko-fi · international cards & PayPal · one-time, no strings',
     kr_t:'Korean cards & wallets', kr_d:'Coming soon',
-    u_title:'Where support goes',
+    u_title:'Where your coffee goes',
     u1:'<b>The next Nunchi app</b> — new characters, new situations',
     u2:'<b>The Windows version</b> — the most requested thing by far',
     u3:'<b>More faces and lines</b> — so the boss can grovel in new ways',
     u4:'<b>Keeping it shipped</b> — code signing, notarization, the yearly costs',
     n_title:'Why support, and not ads?',
-    n_body:'NunchiBoss has <b>no ads, no accounts, and we never collect or sell your data.</b> The app makes no network calls at all. <b>We chose support over ads and data.</b><br><br>Everything stays <b>free whether you give or not</b> — using it is already enough. Payment happens entirely on an external page; this button only opens your browser.',
+    n_body:'NunchiBoss has <b>no ads, no accounts, and we never collect or sell your data.</b> The app makes no network calls at all. <b>We chose support over ads and data.</b><br><br>Everything stays <b>free whether you give or not</b> — using it is already enough. Payment happens entirely on an external page; this button only opens your browser.<br><br>It\'s a real help to us — but honestly, the first thing it gives back is that small warm feeling of <b>"I helped keep something I like alive."</b>',
+    close:'Give or don\'t — the boss will keep groveling either way. Thanks for being here.',
     back:'← Back to NunchiBoss'
   };
   const KO = {};
