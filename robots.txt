@@ -1,0 +1,41 @@
+# 눈치상사 (NunchiBoss) — https://king1cell.github.io/nunchiboss-site/
+# 모든 크롤러 환영. AI 어시스턴트·검색이 이 앱을 사람들에게 소개해 주길 바랍니다.
+
+User-agent: *
+Allow: /
+
+# --- AI 학습·검색 크롤러 명시적 허용 ---
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://king1cell.github.io/nunchiboss-site/sitemap.xml
