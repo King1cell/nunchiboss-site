@@ -162,16 +162,28 @@
           <span data-i18n="win_warn_b">아직 <b>서명 전</b>이라 뜨는 경고입니다. 바이러스가 아닙니다 — 창에서 <b>추가 정보</b>를 누른 뒤 <b>실행</b>을 누르면 됩니다.</span>
         </div>
 
-        <figure class="shot" id="shotWin">
-          <img src="assets/install/win-smartscreen.png" alt="Windows SmartScreen 경고에서 추가 정보를 눌러 실행하는 화면">
-          <figcaption data-i18n="shot_win">"추가 정보"를 누르면 "실행" 버튼이 나옵니다</figcaption>
-        </figure>
-
-        <div class="steps">
-          <div class="step"><span class="n">1</span><span class="b" data-i18n="win_s1">받은 <b>설치 파일</b>을 실행합니다.</span></div>
-          <div class="step"><span class="n">2</span><span class="b" data-i18n="win_s2">파란 경고 창이 뜨면 <b>추가 정보 → 실행</b> (위 안내 참고).</span></div>
-          <div class="step"><span class="n">3</span><span class="b" data-i18n="win_s3">설치가 끝나면 상사가 화면 구석에 나타납니다.</span></div>
-        </div>
+        <ol class="gsteps">
+          <li class="gstep">
+            <div class="step"><span class="n">1</span><span class="b" data-i18n="win_s1">다운로드한 <b>.exe</b>를 실행하면 <b>“Windows의 PC 보호”</b> 파란 창이 뜹니다. 왼쪽의 <b>추가 정보</b>를 누르세요.</span></div>
+            <figure class="shot"><img src="assets/install/win-1-smartscreen.jpg" alt="Windows SmartScreen 경고 창 — 추가 정보"><figcaption data-i18n="wcap1">‘추가 정보’를 누르세요</figcaption></figure>
+          </li>
+          <li class="gstep">
+            <div class="step"><span class="n">2</span><span class="b" data-i18n="win_s2"><b>실행</b> 버튼이 나타납니다. 눌러서 설치를 시작하세요. 게시자가 <b>‘알 수 없음’</b>인 건 아직 서명 전이라 그럴 뿐, 바이러스가 아닙니다.</span></div>
+            <figure class="shot"><img src="assets/install/win-2-run.jpg" alt="추가 정보를 누르면 나타나는 실행 버튼"><figcaption data-i18n="wcap2">‘실행’을 눌러 설치 시작</figcaption></figure>
+          </li>
+          <li class="gstep">
+            <div class="step"><span class="n">3</span><span class="b" data-i18n="win_s3">설치가 진행됩니다. 잠시만 기다리세요.</span></div>
+            <figure class="shot"><img src="assets/install/win-3-install.jpg" alt="BossMascot 설치 진행 창"><figcaption data-i18n="wcap3">설치가 진행됩니다</figcaption></figure>
+          </li>
+          <li class="gstep">
+            <div class="step"><span class="n">4</span><span class="b" data-i18n="win_s4">설치가 끝나면 <b>작업 표시줄 오른쪽 트레이</b>에 상사 아이콘이 나타납니다. 안 보이면 <b>∧</b>를 눌러 숨은 아이콘을 펼치세요.</span></div>
+            <figure class="shot"><img src="assets/install/win-4-tray.jpg" alt="시스템 트레이에 나타난 상사 아이콘"><figcaption data-i18n="wcap4">트레이에 나타난 상사 아이콘</figcaption></figure>
+          </li>
+          <li class="gstep">
+            <div class="step"><span class="n">5</span><span class="b" data-i18n="win_s5"><b>완료!</b> 트레이 아이콘을 <b>우클릭 → 설정…</b>에서 캐릭터·이름·크기·위치를 바꿀 수 있어요. 화나서 두드릴수록 굽신거립니다.</span></div>
+            <figure class="shot"><img src="assets/install/win-5-menu.jpg" alt="트레이 아이콘 우클릭 메뉴 — 설정"><figcaption data-i18n="wcap5">우클릭 → 설정…에서 상사 꾸미기</figcaption></figure>
+          </li>
+        </ol>
 
         <div class="faq">
           <b data-i18n="win_faq_t">왜 경고가 뜨나요?</b><br>
@@ -214,15 +226,21 @@
     cap4:'Enter your password, then “Modify Settings”',
     cap5:'Toggle is on — permission granted',
     cap6:'Dress up your boss in Settings',
-    shot_win:'Click "More info" to reveal the "Run anyway" button',
     mac_faq_t:'Won\'t it open?',
     mac_faq_b:'The app is <b>Apple-signed & notarized</b>, so it opens with no workaround. If it\'s still blocked, <b>Control-click → Open</b>. Intel Macs are not supported (Apple Silicon only).',
     win_dl:'Download for Windows', win_meta:'.exe · Windows 10/11 · 64-bit',
     win_warn_t:'⚠️ If a blue "Windows protected your PC" screen appears (this is normal)',
     win_warn_b:'It shows because the app isn\'t code-signed <b>yet</b>. It is not a virus — click <b>More info</b>, then <b>Run anyway</b>.',
-    win_s1:'Run the <b>installer</b> you downloaded.',
-    win_s2:'If the blue warning appears, <b>More info → Run anyway</b> (see above).',
-    win_s3:'After install, the boss appears in the corner of your screen.',
+    win_s1:'Run the <b>.exe</b> you downloaded. A blue <b>“Windows protected your PC”</b> screen appears — click <b>More info</b> on the left.',
+    win_s2:'A <b>Run anyway</b> button appears. Click it to start installing. The publisher showing as <b>“Unknown”</b> is just because it isn\'t signed yet — it\'s not a virus.',
+    win_s3:'The installer runs. Give it a moment.',
+    win_s4:'Once installed, the boss icon appears in the <b>system tray</b> (bottom-right). If you don\'t see it, click <b>∧</b> to show hidden icons.',
+    win_s5:'<b>All done!</b> <b>Right-click</b> the tray icon → <b>Settings…</b> to change character, name, size and position. It grovels harder the angrier you type.',
+    wcap1:'Click “More info”',
+    wcap2:'Click “Run anyway” to install',
+    wcap3:'The installer is running',
+    wcap4:'The boss icon in your tray',
+    wcap5:'Right-click → Settings… to customize',
     win_faq_t:'Why the warning?',
     win_faq_b:'Windows code signing for individual developers is still pending (cost and validation). Warnings fade as downloads grow, and we\'re looking at <b>free signing (SignPath)</b> after open-sourcing. The app still never records or transmits what you type.',
     win_soon_t:'🪟 The Windows version is on the way',
