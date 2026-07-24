@@ -1,0 +1,74 @@
+  :root{
+    --bg:#FFFFFF; --bg-soft:#F6F4F0; --ink:#202124; --ink-soft:#5F6368;
+    --line:#E4E1DC; --accent:#FF5A3C; --accent-dark:#E03E20; --navy:#2F3A56;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Gowun Dodum',sans-serif; background:var(--bg); color:var(--ink); line-height:1.6}
+  h1,h2,.jua{font-family:'Jua',sans-serif; font-weight:400}
+  a{color:var(--accent-dark)}
+  nav{display:flex; align-items:center; gap:20px; padding:16px 32px; border-bottom:1px solid var(--line)}
+  .logo{font-family:'Jua'; font-size:1.3rem; text-decoration:none; color:var(--ink)}
+  .nav-spacer{flex:1}
+  .lang-btn{background:none;border:none;cursor:pointer;font-family:'Jua';font-size:.9rem;color:var(--ink-soft);padding:6px 12px;border-radius:999px}
+  .lang-btn.active{color:var(--accent-dark)}
+  .wrap{max-width:600px; margin:0 auto; padding:44px 24px 80px}
+  h1{font-size:clamp(1.5rem,4vw,2.1rem); text-align:center; margin-bottom:6px}
+  .sub{text-align:center; color:var(--ink-soft); margin-bottom:26px}
+
+  /* OS 전환 탭 */
+  .os-tabs{display:flex; gap:8px; justify-content:center; margin-bottom:28px}
+  .os-tab{font-family:'Jua'; font-size:.95rem; color:var(--ink-soft); background:var(--bg-soft);
+    border:1.5px solid var(--line); border-radius:999px; padding:8px 20px; cursor:pointer; transition:.12s}
+  .os-tab.active{color:#fff; background:var(--accent); border-color:var(--accent)}
+
+  /* 다운로드 버튼 */
+  .dl{display:flex; flex-direction:column; align-items:center; gap:10px; margin-bottom:8px}
+  .dl-btn{
+    display:inline-flex; align-items:center; gap:12px; font-family:'Jua'; font-size:1.2rem;
+    background:var(--accent); color:#fff; text-decoration:none;
+    padding:16px 40px; border-radius:999px; box-shadow:0 5px 0 var(--accent-dark);
+    transition:transform .12s, box-shadow .12s;
+  }
+  .dl-btn:hover{transform:translateY(-2px)}
+  .dl-btn:active{transform:translateY(3px); box-shadow:0 2px 0 var(--accent-dark)}
+  .dl-btn.disabled{background:var(--ink-soft); box-shadow:none; cursor:default; pointer-events:none; opacity:.7}
+  .dl-meta{font-size:.85rem; color:var(--ink-soft)}
+
+  /* 단계 */
+  .steps{margin-top:30px; counter-reset:step}
+  .step{display:flex; gap:14px; margin-bottom:16px}
+  .step .n{flex-shrink:0; width:28px; height:28px; border-radius:50%; background:var(--accent); color:#fff;
+    font-family:'Jua'; font-size:.9rem; display:flex; align-items:center; justify-content:center}
+  .step .b{font-size:.94rem}
+  .step .b b{font-family:'Jua'; font-weight:400}
+
+  /* 스크린샷이 딸린 단계 가이드 (macOS) */
+  .gsteps{list-style:none; margin-top:30px}
+  .gstep{margin-bottom:30px}
+  .gstep .step{margin-bottom:12px}
+  .gstep .shot{margin:0 0 0 42px}
+  @media (max-width:480px){ .gstep .shot{margin-left:0} }
+  /* 작은 안내창 캡처는 늘리지 않고 원본 크기로 가운데 정렬 (업스케일 흐림 방지) */
+  .shot.pop img{width:auto; max-width:min(100%,360px); margin-inline:auto}
+
+  /* 경고 안내 박스 */
+  .callout{background:#FFF8E6; border:1.5px solid #FFE08A; border-radius:12px; padding:14px 16px; margin:22px 0; font-size:.88rem}
+  .callout b{font-family:'Jua'; font-weight:400}
+
+  /* 안내 스크린샷 — 기본은 숨김. 이미지가 실제로 로드되면 JS가 .ready를 붙여 보여준다
+     (파일이 없으면 계속 숨김 → 깨진 이미지·레이아웃 깨짐 없음) */
+  .shot{margin:20px 0; display:none}
+  .shot.ready{display:block}
+  .shot img{width:100%; height:auto; display:block; border:1.5px solid var(--line); border-radius:12px}
+  .shot figcaption{margin-top:8px; font-size:.8rem; color:var(--ink-soft); text-align:center}
+  .faq{background:var(--bg-soft); border-radius:12px; padding:14px 16px; font-size:.82rem; color:var(--ink-soft); margin-top:8px}
+  .faq b{color:var(--ink); font-family:'Jua'; font-weight:400}
+
+  .coming{text-align:center; background:var(--bg-soft); border-radius:16px; padding:28px 20px; margin-bottom:8px}
+  .coming .big{font-family:'Jua'; font-size:1.15rem; margin-bottom:8px}
+  .coming p{font-size:.9rem; color:var(--ink-soft); margin-bottom:18px}
+  .vote-btn{display:inline-flex; align-items:center; gap:8px; font-family:'Jua'; font-size:1rem;
+    background:var(--accent); color:#fff; text-decoration:none; padding:12px 26px; border-radius:999px; box-shadow:0 4px 0 var(--accent-dark)}
+
+  .back{display:block; text-align:center; margin-top:34px; text-decoration:none; font-family:'Jua'}
+  [hidden]{display:none !important}
