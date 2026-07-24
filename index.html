@@ -2,6 +2,8 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; media-src 'self'; connect-src 'self' https://nunchiboss-contact.theking1cell.workers.dev https://nunchiboss-waitlist.theking1cell.workers.dev https://cloudflareinsights.com https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; form-action 'self'; object-src 'none'; base-uri 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>눈치상사(NunchiBoss) — 클릭할수록 사과받는 스트레스 해소 앱</title>
 <meta name="description" content="화가 날 땐 상사를 클릭하세요. 화면 위 원하는 자리에 상사를 띄워두고 두드릴 때마다 사과를 받아내는 데스크톱 스트레스 해소 앱.">
@@ -26,250 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg: #FFFFFF;
-    --bg-soft: #F6F4F0;
-    --ink: #202124;
-    --ink-soft: #5F6368;
-    --line: #E4E1DC;
-    --accent: #FF5A3C;      /* 분노의 주황빨강 */
-    --accent-dark: #E03E20;
-    --navy: #2F3A56;        /* 상사 정장 네이비 */
-    --yellow: #FFC93C;
-    --radius: 18px;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:'Gowun Dodum', sans-serif;
-    background:var(--bg);
-    color:var(--ink);
-    line-height:1.6;
-    overflow-x:clip;
-  }
-  h1,h2,h3,.jua{font-family:'Jua', sans-serif; font-weight:400}
-  a{color:inherit}
-
-  /* ---------- Nav ---------- */
-  nav{
-    position:sticky; top:0; z-index:50;
-    display:flex; align-items:center; gap:34px;
-    padding:16px 40px;
-    background:rgba(255,255,255,.9);
-    backdrop-filter:blur(12px);
-    border-bottom:1px solid var(--line);
-  }
-  .logo{display:flex; align-items:center; gap:11px; font-family:'Jua'; font-size:1.5rem; text-decoration:none; color:var(--ink)}
-  .logo .mark{
-    width:40px;height:40px;border-radius:12px;
-    object-fit:contain;
-  }
-  .nav-links{display:flex; gap:28px; margin-left:8px}
-  .nav-links a{text-decoration:none; color:var(--ink-soft); font-size:.98rem; transition:color .15s}
-  .nav-links a:hover{color:var(--ink)}
-  /* 후원 — 내부 앵커들 사이의 외부 링크. 다운로드 CTA와 경쟁하지 않게 조용히 두되 hover만 따뜻하게 */
-  .nav-links .nav-sponsor{white-space:nowrap}
-  .nav-links .nav-sponsor:hover{color:var(--accent-dark)}
-  /* 좁은 폭(≤700px)에선 헤더 후원 링크를 숨긴다 — 안 그러면 nav가 넘쳐 페이지 전체가
-     가로 스크롤된다(560~650px 구간에서 확인). footer 후원 링크는 남아 접근 경로는 유지 */
-  @media (max-width:700px){ .nav-links .nav-sponsor{display:none} }
-  .nav-spacer{flex:1}
-  .nav-cta{
-    font-family:'Jua'; font-size:.95rem;
-    background:var(--accent); color:#fff; text-decoration:none;
-    padding:9px 22px; border-radius:999px;
-    box-shadow:0 3px 0 var(--accent-dark);
-    transition:transform .12s ease;
-  }
-  .nav-cta:active{transform:translateY(2px); box-shadow:none}
-  .langs{display:flex; align-items:center; gap:2px; margin-right:14px}
-  .lang-btn{background:none; border:none; cursor:pointer; font-family:'Jua'; font-size:.92rem; color:var(--ink-soft); padding:6px 12px; border-radius:999px; transition:color .15s}
-  .lang-btn.active{color:var(--accent-dark)}
-  .lang-btn:hover:not(.active){color:var(--ink)}
-
-  /* ---------- Hero (Chrome 스타일 중앙 정렬) ---------- */
-  .hero{
-    position:relative;
-    max-width:900px;
-    margin:0 auto;
-    padding:40px 24px 72px;
-    text-align:center;
-    display:flex; flex-direction:column; align-items:center;
-  }
-
-  /* 상사 캐릭터 무대 */
-  .stage{position:relative; width:min(400px,90vw); text-align:center}
-  .boss-sprite{width:200px; max-width:64vw; height:auto; display:inline-block; image-rendering:pixelated; -webkit-user-drag:none; filter:drop-shadow(0 12px 12px rgba(32,33,36,.18))}
-  .bubble{
-    position:relative;
-    margin:0 auto 8px;
-    max-width:320px;
-    background:#fff;
-    border:2px solid var(--ink);
-    border-radius:18px;
-    padding:12px 20px;
-    font-family:'Jua';
-    font-size:1.08rem;
-    box-shadow:4px 4px 0 rgba(32,33,36,.12);
-    min-height:52px;
-    display:flex; align-items:center; justify-content:center;
-  }
-  .bubble.pop{animation:bpop .25s ease}
-  @keyframes bpop{0%{transform:scale(.92)}60%{transform:scale(1.05)}100%{transform:scale(1)}}
-  .bubble::after{
-    content:''; position:absolute; bottom:-12px; left:50%;
-    transform:translateX(-50%) rotate(45deg);
-    width:20px;height:20px; background:#fff;
-    border-right:2px solid var(--ink); border-bottom:2px solid var(--ink);
-    border-radius:0 0 5px 0;
-  }
-  .boss-wrap{
-    cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent;
-    display:inline-block; transition:transform .08s ease;
-  }
-  .boss-wrap:active{transform:scale(.96)}
-  .boss-wrap.shake{animation:shake .3s ease}
-  @keyframes shake{
-    0%,100%{transform:translateX(0) rotate(0)}
-    25%{transform:translateX(-7px) rotate(-2deg)}
-    75%{transform:translateX(7px) rotate(2deg)}
-  }
-  .hint{margin-top:2px; font-size:.88rem; color:var(--ink-soft); display:flex; align-items:center; justify-content:center; gap:6px}
-  .hint .cursor{animation:bounce 1.2s infinite}
-  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-
-  .hero h1{
-    margin-top:24px;
-    font-size:clamp(1.7rem, 4vw, 2.6rem);
-    line-height:1.22;
-    letter-spacing:-.5px;
-  }
-  .hero h1 .stroke{color:var(--accent)}
-  /* 헤더 브랜드가 한국어에선 태그라인이라 길다 — 로고 폰트를 줄여 맞춘다 (강조색 없음) */
-  .logo .brand-tag{font-size:1.06rem; letter-spacing:-.3px}
-  .logo .brand-tag small{font-size:.82em}
-  .hero .sub{margin-top:16px; font-size:clamp(1rem,2.2vw,1.2rem); color:var(--ink-soft); max-width:540px}
-
-  /* 중앙 하단 다운로드 (Chrome 스타일 큰 버튼) */
-  .dl-main{
-    display:inline-flex; align-items:center; gap:12px;
-    margin-top:34px;
-    background:var(--accent); color:#fff; text-decoration:none;
-    font-family:'Jua'; font-size:1.3rem;
-    padding:18px 46px; border-radius:999px;
-    box-shadow:0 5px 0 var(--accent-dark), 0 12px 30px rgba(224,62,32,.32);
-    transition:transform .12s ease, box-shadow .12s ease;
-  }
-  .dl-main:hover{transform:translateY(-2px); box-shadow:0 7px 0 var(--accent-dark), 0 16px 34px rgba(224,62,32,.36)}
-  .dl-main:active{transform:translateY(3px); box-shadow:0 2px 0 var(--accent-dark)}
-  .dl-main svg{width:26px;height:26px}
-  .os-note{margin-top:14px; font-size:.92rem; color:var(--ink-soft)}
-  .plat-notes{margin:22px auto 0; max-width:480px; display:flex; flex-direction:column; gap:8px}
-  .plat-notes p{font-size:.82rem; color:var(--ink-soft); line-height:1.5; background:var(--bg-soft); border-radius:12px; padding:10px 14px; text-align:left}
-  /* 데모 영상 — assets/demo.mp4 파일을 올리면 자동으로 나타난다 (없으면 숨김 유지, 레이아웃 안 깨짐) */
-  .demo-slot{display:none; margin:28px auto 0; max-width:560px; width:100%}
-  .demo-slot.ready{display:block}
-  .demo-slot video{width:100%; height:auto; display:block; border:1.5px solid var(--line); border-radius:16px; box-shadow:0 10px 28px rgba(32,33,36,.14)}
-  .plat-notes b{color:var(--ink); font-family:'Jua'; font-weight:400}
-  .alt-link{margin-top:20px; font-family:'Jua'; color:var(--accent-dark); text-decoration:none; font-size:1.02rem}
-  .alt-link:hover{text-decoration:underline}
-
-  .store-btns{display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:22px}
-  .store-btn{
-    display:flex; align-items:center; gap:11px;
-    background:#fff; color:var(--ink); text-decoration:none;
-    padding:11px 20px; border-radius:14px; border:1.5px solid var(--line);
-    transition:transform .12s ease, border-color .12s;
-    min-width:180px;
-  }
-  .store-btn:hover{transform:translateY(-2px); border-color:var(--ink)}
-  .store-btn svg{width:24px;height:24px;flex-shrink:0}
-  .store-btn .txt{text-align:left; line-height:1.2}
-  .store-btn .txt small{font-size:.68rem; color:var(--ink-soft); display:block}
-  .store-btn .txt b{font-size:1rem; font-family:'Jua'; font-weight:400}
-
-  /* 약관 (Chrome 스타일) */
-  .terms{margin-top:34px; max-width:520px; text-align:left; color:var(--ink-soft); font-size:.85rem}
-  .terms .row{display:flex; gap:10px; align-items:flex-start; margin-bottom:10px}
-  .terms input{margin-top:4px; width:16px; height:16px; accent-color:var(--accent); flex-shrink:0}
-  .terms a{color:var(--accent-dark)}
-
-  /* ---------- Sections ---------- */
-  section{padding:80px 24px; max-width:1040px; margin:0 auto}
-  .divider{border:none; border-top:1px solid var(--line); max-width:1040px; margin:0 auto}
-  .sec-title{text-align:center; font-size:clamp(1.6rem,3.6vw,2.3rem); margin-bottom:10px}
-  .sec-sub{text-align:center; color:var(--ink-soft); margin-bottom:46px}
-
-  .steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:22px}
-  .step{background:#fff; border-radius:var(--radius); padding:30px 26px; text-align:center; border:1px solid var(--line); transition:transform .18s ease, box-shadow .18s}
-  .step:hover{transform:translateY(-5px); box-shadow:0 12px 26px rgba(32,33,36,.08)}
-  .step .num{width:42px;height:42px; margin:0 auto 14px; border-radius:50%; background:var(--bg-soft); display:grid; place-items:center; font-family:'Jua'; font-size:1.15rem; color:var(--accent-dark)}
-  .step .emoji{font-size:2.3rem; display:block; margin-bottom:12px}
-  .step h3{font-size:1.22rem; margin-bottom:8px}
-  .step p{font-size:.94rem; color:var(--ink-soft)}
-
-  .features{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px}
-  .feature{background:var(--bg-soft); border-radius:var(--radius); padding:26px 24px}
-  .feature .emoji{font-size:1.85rem}
-  .feature h3{margin:10px 0 6px; font-size:1.1rem}
-  .feature p{font-size:.92rem; color:var(--ink-soft)}
-
-  .quotes{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px}
-  .quote{background:#fff; border:2px solid var(--ink); border-radius:18px; padding:24px; box-shadow:5px 5px 0 rgba(32,33,36,.1)}
-  .quote p{font-size:.98rem; margin-bottom:14px}
-  .quote .who{font-family:'Jua'; font-size:.9rem; color:var(--ink-soft)}
-  .stars{color:var(--yellow); letter-spacing:2px; margin-bottom:8px}
-
-  .faq-list{max-width:680px; margin:0 auto}
-  details{background:#fff; border-radius:14px; margin-bottom:12px; border:1px solid var(--line); overflow:hidden}
-  summary{cursor:pointer; padding:18px 22px; font-family:'Jua'; font-size:1.02rem; list-style:none; display:flex; justify-content:space-between; align-items:center}
-  summary::-webkit-details-marker{display:none}
-  summary::after{content:'+'; font-size:1.3rem; color:var(--accent); transition:rotate .2s}
-  details[open] summary::after{rotate:45deg}
-  details .a{padding:0 22px 18px; color:var(--ink-soft); font-size:.95rem}
-
-  /* ---------- Final CTA ---------- */
-  .final{background:var(--navy); color:#fff; text-align:center; border-radius:28px; padding:64px 28px; max-width:1040px; margin:0 auto 24px}
-  .final h2{font-size:clamp(1.7rem,3.6vw,2.4rem); margin-bottom:10px}
-  .final p{opacity:.85; margin-bottom:30px}
-  .final .dl-main{background:var(--accent); box-shadow:0 5px 0 var(--accent-dark)}
-
-  /* 저작권 — 남색 카드 바로 밑, 경계선 없음 */
-  .foot-copy{text-align:center; font-size:.82rem; color:var(--ink-soft); margin:0 auto 40px; padding:0 20px}
-  /* footer(개인정보처리방침·문의하기)만 경계선을 갖는다. 문서의 마지막 요소라 자연히 페이지 맨 아래에 온다 */
-  footer{text-align:center; padding:26px 20px 34px; font-size:.82rem; color:var(--ink-soft); border-top:1px solid var(--line)}
-  .foot-links{display:flex; justify-content:center; align-items:center; gap:12px; flex-wrap:wrap}
-  .foot-links a{color:var(--ink-soft); text-decoration:none; font-weight:600}
-  .foot-links a:hover{color:var(--accent-dark); text-decoration:underline}
-  .foot-sep{color:var(--line)}
-  /* 개인정보처리방침 블록 제목 */
-  .terms-h{font-size:.95rem; font-weight:700; color:var(--ink); margin-bottom:8px}
-  /* footer 앵커로 점프 시 고정 헤더에 가리지 않게 */
-  #privacy{scroll-margin-top:80px}
-
-  /* ---------- 스크롤 시 하단 중앙 플로팅 다운로드 ---------- */
-  .float-dl{
-    position:fixed; bottom:22px; left:50%;
-    transform:translate(-50%,90px); z-index:60;
-    display:flex; align-items:center; gap:10px;
-    background:var(--accent); color:#fff; text-decoration:none;
-    font-family:'Jua'; font-size:1.05rem;
-    padding:14px 30px; border-radius:999px;
-    box-shadow:0 8px 24px rgba(224,62,32,.4), 0 3px 0 var(--accent-dark);
-    transition:transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s;
-    opacity:0;
-  }
-  .float-dl.show{transform:translate(-50%,0); opacity:1}
-  .float-dl:active{transform:translate(-50%,3px)}
-  .float-dl svg{width:20px;height:20px}
-  @media (max-width:560px){
-    nav{padding:12px 18px; gap:14px}
-    .nav-links{display:none}
-    section{padding:60px 18px}
-    .dl-main{font-size:1.12rem; padding:15px 32px}
-  }
-</style>
+<link rel="stylesheet" href="assets/css/index.css">
 <!-- 구조화 데이터: 검색엔진·AI가 "무료 데스크톱 앱"임을 기계적으로 인식 -->
 <script type="application/ld+json">
 {
@@ -421,7 +180,7 @@
 </section>
 
 <!-- ================= FEATURES ================= -->
-<section id="features" style="padding-top:0">
+<section id="features" class="pt-0">
   <h2 class="sec-title" data-i18n="ft_t">이런 게 들어있어요</h2>
   <p class="sec-sub" data-i18n="ft_s">스트레스 해소에 진심인 기능들</p>
   <div class="features">
@@ -449,7 +208,7 @@
 </section>
 
 <!-- ================= QUOTES ================= -->
-<section id="quotes" style="padding-top:0">
+<section id="quotes" class="pt-0">
   <h2 class="sec-title" data-i18n="q_t">먼저 사과받은 분들의 후기</h2>
   <p class="sec-sub" data-i18n="q_s">※ 마음속 깊은 곳에서 보내주신 가상의 후기입니다</p>
   <div class="quotes">
@@ -472,7 +231,7 @@
 </section>
 
 <!-- ================= FAQ ================= -->
-<section id="faq" style="padding-top:0">
+<section id="faq" class="pt-0">
   <h2 class="sec-title" data-i18n="faq_t">자주 묻는 질문</h2>
   <p class="sec-sub" data-i18n="faq_s">궁금한 건 상사 말고 저희에게 물어보세요</p>
   <div class="faq-list">
@@ -538,197 +297,7 @@
   <span data-i18n="float_btn">다운로드</span>
 </a>
 
-<script>
-  const boss = document.getElementById('boss');
-  const bossImg = document.getElementById('bossImg');
-  const bubble = document.getElementById('bubble');
-
-  let rage = 0;
-  let decayTimer = null;
-
-  // 데모 상사는 거만 포즈(pose-01) 고정 — 사죄 연출은 앱에서만
-  const FRAMES = [
-    {min:0,  src:'assets/boss/pose-01.png'},
-  ];
-  FRAMES.forEach(f => { const i = new Image(); i.src = f.src; });
-
-  let lang = localStorage.getItem('sajoe_lang') || 'ko';
-
-  const TAUNTS = {
-    ko: ['내가 다 너 잘되라고 하는 소리야.','지금은 이해 안 되겠지만 다 너를 위한 거야.','힘든 게 다 성장이야. 나중에 나한테 고마워할걸?','너니까 이런 것도 시키는 거야, 아무한테나 안 해.','젊을 때 고생은 사서도 한다잖아.','이런 거 하나 못 참으면 어디 가서도 못 버텨.','내가 너 미워서 이러겠어? 애정이 있으니까 그러지.','이것도 다 경험이야, 나중에 다 자산이 돼.','이런 쓴소리 해주는 사람 나밖에 없어.','서운해하지 마, 다 애정이 있어서 그러는 거야.','회사가 학교야, 학원비 낸다 생각하고 배워.','지금 안 힘들면 나중에 더 힘들어, 미리 겪는 거야.','너 진짜 아끼니까 하는 말인데, 정신 좀 차려.','내가 니 나이 땐 이런 말 해주는 사람도 없었어.','이 정도 가지고 힘들면 어떻게 임원 달아?','다들 하는 건데 왜 너만 유별나게 굴어?','이걸 이렇게밖에 못 해요?','그래서 결론이 뭡니까?','내가 신입 때는 밤도 새웠어.','주말에 잠깐 나올 수 있죠?','요즘 젊은 사람들은 패기가 없어.'],
-    en: ["I'm only saying this for your own good.","You won't get it now, but this is all for you.","Hardship is growth. You'll thank me later.","I only ask this of you. I wouldn't trust just anyone.","Suffering while young builds character.","If you can't handle this, you won't last anywhere.","You think I do this because I hate you? It's affection.","It's all experience. It'll be an asset someday.","I'm the only one who'll tell you the hard truth.","Don't be hurt — I say it out of love.","This company is your school. Think of it as tuition.","Struggle now, or struggle harder later.","I say this because I truly care: get it together.","At your age, nobody even bothered to tell me this.","If this is hard, how will you ever make executive?","Everyone else does it. Why are you so special?","Is this really the best you can do?","So what's the bottom line here?","When I was a rookie, I pulled all-nighters.","You can pop in this weekend, right?","Young people these days have no grit."]
-  };
-  const CALM = {
-    ko: '거봐, 다 너 생각해서 한 소리잖아.',
-    en: "See? I told you it was for your own good."
-  };
-
-  function currentLines(){
-    return TAUNTS[lang] || TAUNTS.ko;
-  }
-
-  function currentFrame(){
-    let s = FRAMES[0].src;
-    for(const f of FRAMES){ if(rage >= f.min) s = f.src; }
-    return s;
-  }
-
-  function updateFace(){
-    const src = currentFrame();
-    if(!bossImg.getAttribute('src').endsWith(src)) bossImg.src = src;
-  }
-
-  boss.addEventListener('click', () => {
-    rage = Math.min(100, rage + 7);
-    const set = currentLines();
-    bubble.textContent = set[Math.floor(Math.random()*set.length)];
-    bubble.classList.remove('pop'); void bubble.offsetWidth; bubble.classList.add('pop');
-    boss.classList.remove('shake'); void boss.offsetWidth; boss.classList.add('shake');
-    updateFace();
-
-    clearInterval(decayTimer);
-    decayTimer = setInterval(() => {
-      rage = Math.max(0, rage - 2);
-      updateFace();
-      if(rage === 0){
-        clearInterval(decayTimer);
-        bubble.textContent = CALM[lang] || CALM.ko;
-      }
-    }, 400);
-  });
-
-  // ---- 다운로드 진입점: 실제 파일이 아니라 설치 안내 페이지(install.html)로 보낸다.
-  //      다운로드 버튼·SmartScreen/Gatekeeper 안내가 그 페이지에 있어, 무서명 경고로 인한 이탈을 줄인다. ----
-  const REL = {
-    win: 'https://king1cell.github.io/nunchiboss-site/install.html?os=win',
-    mac: 'https://king1cell.github.io/nunchiboss-site/install.html?os=mac',
-    page: 'https://king1cell.github.io/nunchiboss-site/install.html',
-  };
-  // 히어로 메인 버튼은 접속 OS에 맞는 안내로 자동 연결 (감지 실패 시 install.html이 자체 감지)
-  const isMac = /Mac|iPhone|iPad/i.test(navigator.platform || '') || /Mac OS X/i.test(navigator.userAgent || '');
-  document.getElementById('dlBtn').href = isMac ? REL.mac : REL.win;
-
-  // 데모 영상: 파일이 실제로 로드될 때만 슬롯 표시 (파일이 없으면 계속 숨김).
-  // 여러 클립을 번갈아 재생 — 한 편이 끝나면 다음 편으로 넘어가고 다시 처음으로.
-  // 두 번째 클립이 없으면(404) 첫 클립 무한 반복으로 폴백한다.
-  (function(){
-    const slot = document.getElementById('demoSlot');
-    if(!slot) return;
-    const v = slot.querySelector('video');
-    const clips = ['assets/demo.mp4', 'assets/demo2.mp4'];
-    let i = 0;
-    v.addEventListener('loadeddata', ()=>slot.classList.add('ready'));
-    v.addEventListener('ended', ()=>{
-      i = (i + 1) % clips.length;
-      v.src = clips[i];
-      v.play().catch(()=>{});
-    });
-    v.addEventListener('error', ()=>{
-      if(i !== 0){ i = 0; v.src = clips[0]; v.loop = true; v.play().catch(()=>{}); }
-    });
-    if(v.readyState >= 2) slot.classList.add('ready');
-  })();
-
-  // 하단 중앙 플로팅 다운로드: 히어로의 다운로드 버튼이 화면 위로 사라지고, 최종 CTA가 안 보일 때만 표시
-  const floatDl = document.getElementById('floatDl');
-  const downloadSec = document.getElementById('download');
-  const finalSec = document.getElementById('final');
-  function updateFloatDl(){
-    const heroOut = downloadSec.getBoundingClientRect().bottom < 0;
-    const finalIn = finalSec.getBoundingClientRect().top < window.innerHeight;
-    floatDl.classList.toggle('show', heroOut && !finalIn);
-  }
-  window.addEventListener('scroll', updateFloatDl, {passive:true});
-  window.addEventListener('resize', updateFloatDl);
-  updateFloatDl();
-
-  // ---- i18n (한국어 / English) ----
-  const EN = {
-    brand: 'NunchiBoss',
-    nav_how: 'How it works',
-    nav_ft: 'Features',
-    nav_sponsor: '☕ Support',
-    nav_cta: 'Download',
-    hero_h1: 'Held it in again today?<br><span class="stroke">Time to get that apology.</span>',
-    hero_sub: 'Put the boss on your screen, click away, collect apologies.',
-    dl_main: 'Download NunchiBoss',
-    os_note: 'Windows 10/11 · macOS 14+ · Apple Silicon only',
-    win_size: '.exe · Windows 10/11 · 64-bit',
-    mac_size: '.dmg · Apple Silicon · 122MB',
-    note_win: '🪟 <b>Windows</b> — v0.3.0 is out (Windows 10/11 · 64-bit). Not code-signed yet — if SmartScreen appears, click <b>More info → Run anyway</b>. <a href="https://www.virustotal.com/gui/file/e7edfd7ecabe95ae31704efc0db78bc977645f2a3fa09e77d88873a00a8f7c7c" target="_blank" rel="noopener noreferrer">VirusTotal 0/66 — verify yourself</a>',
-    note_mac: '🍎 <b>macOS</b> — v0.3.0 is out (Apple-signed & notarized). Just grant <b>Accessibility permission</b> on first launch.',
-    terms: '<b>By default the app makes zero network calls.</b> No accounts. We never record what you type — only aggregate typing, clicking and mouse-movement statistics, activity time, and app settings are stored locally on your device. The only one who knows about your rage is the boss — and it never leaves your device. The only exception is checking for a new version — and only when <b>you</b> turn on "check for updates" or press "check now": it compares version numbers with GitHub (no user data is sent). Do neither and the app makes no network calls at all.<br><br><b>This website is separate.</b> Messages and any optional email you send through the contact form are kept in a private repository so we can reply and keep records. The page uses <b>Cloudflare Turnstile</b> for spam protection, which sends a bot-check request to Cloudflare. The Windows waitlist only counts a number — no name, email, or IP is stored. Visit stats are counted with <b>cookieless, non-identifying</b> Cloudflare Web Analytics (page views only).',
-    how_t: 'Three steps to an apology',
-    how_s: 'Work is complicated enough already.',
-    s1t: 'Summon the boss',
-    s1p: 'Launch the app and there he is — wearing that oddly familiar look.',
-    s2t: 'Unleash your rage',
-    s2p: 'Click like mad, or type everything you never got to say. The faster you go, the higher it builds.',
-    s3t: 'Collect the apology',
-    s3p: 'The higher your rage, the more desperate his apologies — full 90-degree bows included.',
-    ft_t: "What's inside",
-    ft_s: 'Features that take stress relief seriously',
-    f1t: 'Click-spam mode',
-    f1p: 'Clicks per second convert straight into rage. The faster you mash, the harder he apologizes.',
-    f2t: 'Speed-typing mode',
-    f2p: "Type everything you wish you'd said. The boss sweats in proportion to your WPM.",
-    f3t: 'Escalating apologies',
-    f3p: 'From "I\'m sorry" to "It\'s all my fault, please…" — the apology escalates to on-the-knees as your rage climbs.',
-    f4t: 'Stays on your device',
-    f4p: 'We never record what you type, and there are no accounts. Only aggregate statistics and app settings are stored locally, never sent anywhere. What you typed stays between you and… no one, actually.',
-    q_t: 'Reviews from the already-apologized-to',
-    q_s: '※ Entirely fictional reviews, sent from deep within the heart',
-    q1: '"My report got rejected, so I spam-clicked for five minutes on the subway. Best commute in months."',
-    q1w: '— K, 7th-year associate',
-    q2: '"I typed my resignation draft into typing mode and the boss got on his knees. I didn\'t resign."',
-    q2w: '— P, 3rd-year staff',
-    q3: '"I\'m a boss myself, and now I know what my team is up to. Five stars. I\'m sorry."',
-    q3w: '— L, anonymous department head',
-    faq_t: 'FAQ',
-    faq_s: 'Ask us — not your boss',
-    fq1: 'Can my boss find out I use this?',
-    fa1: 'The app itself sends nothing outside — no accounts, no notifications, and we never record what you type. That said, on a company-managed device an administrator may be able to see which programs are installed and running, so keep that in mind.',
-    fq2: 'What changes when I click faster?',
-    fa2: 'Your rage builds faster, and his apologies escalate — from a polite nod to a full 90-degree bow.',
-    fq3: 'Can I type anything in typing mode?',
-    fa3: 'Yes, type whatever you like. We never record what you type — only stats like your typing speed are counted. The faster you type, the more he sweats.',
-    fq4: "Can I use my actual boss's face?",
-    fa4: "That feature doesn't exist — but hairstyle, glasses and tie customization are on the way.",
-    fq5: 'What does it run on?',
-    fa5: "Desktop only: Windows 10/11 and macOS 14 (Sonoma) or later. No mobile version — the boss doesn't follow you into your pocket.",
-    fq6: 'Is it free?',
-    fa6: "Yes — every feature is free. No ads, no accounts. If you feel like it, you can support development with a donation.",
-    fq7: 'How is it different from desktop pets like Bongo Cat or Shimeji?',
-    fa7: "Having a character live on your screen is similar — but NunchiBoss reacts to the <b>intensity</b> of your typing and clicking. The harder and faster you rage-type, the more scared the boss gets and the deeper it bows in apology. Keep raging and it grows numb; punish it with a click-storm and it snaps back to desperate apologies. It's a desktop pet for the days you need to take it out on your keyboard.",
-    fin_t: 'Today is the last day you hold it in.',
-    fin_p: 'Get your apology in before tomorrow morning.',
-    fin_btn: 'Download now',
-    float_btn: 'Download',
-    foot: '© 2026 NunchiBoss · Any resemblance to actual bosses is purely coincidental (probably)',
-    privacy_h: '🔒 Privacy',
-    foot_privacy: 'Privacy',
-    foot_contact: 'Contact',
-    foot_sponsor: '☕ Support'
-  };
-  const KO = {};
-  document.querySelectorAll('[data-i18n]').forEach(el => { KO[el.dataset.i18n] = el.innerHTML; });
-  const TITLES = { ko: document.title, en: 'NunchiBoss — click your boss, collect apologies' };
-
-  function setLang(l){
-    lang = l;
-    localStorage.setItem('sajoe_lang', l);
-    document.documentElement.lang = l;
-    document.title = TITLES[l] || TITLES.ko;
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const k = el.dataset.i18n;
-      el.innerHTML = (l === 'en' && EN[k] !== undefined) ? EN[k] : KO[k];
-    });
-    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
-    bubble.textContent = (TAUNTS[l] || TAUNTS.ko)[0];
-  }
-  document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
-  if(lang !== 'ko') setLang(lang);
-</script>
+<script src="assets/js/index.js"></script>
 <!-- Cloudflare Web Analytics (쿠키리스·개인 미식별) --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "986360228b1944179cb950e820922b25"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
