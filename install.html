@@ -53,6 +53,15 @@
   .step .b{font-size:.94rem}
   .step .b b{font-family:'Jua'; font-weight:400}
 
+  /* 스크린샷이 딸린 단계 가이드 (macOS) */
+  .gsteps{list-style:none; margin-top:30px}
+  .gstep{margin-bottom:30px}
+  .gstep .step{margin-bottom:12px}
+  .gstep .shot{margin:0 0 0 42px}
+  @media (max-width:480px){ .gstep .shot{margin-left:0} }
+  /* 작은 안내창 캡처는 늘리지 않고 원본 크기로 가운데 정렬 (업스케일 흐림 방지) */
+  .shot.pop img{width:auto; max-width:min(100%,360px); margin-inline:auto}
+
   /* 경고 안내 박스 */
   .callout{background:#FFF8E6; border:1.5px solid #FFE08A; border-radius:12px; padding:14px 16px; margin:22px 0; font-size:.88rem}
   .callout b{font-family:'Jua'; font-weight:400}
@@ -103,16 +112,32 @@
         <span class="dl-meta" data-i18n="mac_meta">.dmg · Apple Silicon 전용 · macOS 14+</span>
       </div>
 
-      <div class="steps">
-        <div class="step"><span class="n">1</span><span class="b" data-i18n="mac_s1">받은 <b>.dmg</b>를 열고, 눈치상사를 <b>응용 프로그램</b> 폴더로 드래그하세요.</span></div>
-        <div class="step"><span class="n">2</span><span class="b" data-i18n="mac_s2">처음 실행하면 <b>시스템 설정 › 개인정보 보호 및 보안 › 손쉬운 사용</b>에서 눈치상사를 켜주세요. 목록에는 내부 이름 <b>BossMascot</b>으로 표시됩니다. 키보드·마우스의 <b>횟수만</b> 감지하며, 무엇을 눌렀는지는 기록하지 않습니다.</span></div>
-        <div class="step"><span class="n">3</span><span class="b" data-i18n="mac_s3">끝났습니다. 상사가 화면 구석에 나타납니다. 화나서 두드릴수록 굽신거립니다.</span></div>
-      </div>
-
-      <figure class="shot" id="shotMac">
-        <img src="assets/install/mac-accessibility.png?v=1" alt="시스템 설정의 손쉬운 사용에서 눈치상사를 켜는 화면">
-        <figcaption data-i18n="shot_mac">손쉬운 사용에서 눈치상사를 켠 모습</figcaption>
-      </figure>
+      <ol class="gsteps">
+        <li class="gstep">
+          <div class="step"><span class="n">1</span><span class="b" data-i18n="mac_s1">받은 <b>.dmg</b>를 열고, 눈치상사를 <b>응용 프로그램</b> 폴더로 드래그하세요.</span></div>
+          <figure class="shot"><img src="assets/install/mac-1-download.jpg" alt="dmg 창에서 눈치상사를 응용 프로그램 폴더로 드래그하는 화면"><figcaption data-i18n="cap1">눈치상사를 응용 프로그램 폴더로 드래그</figcaption></figure>
+        </li>
+        <li class="gstep">
+          <div class="step"><span class="n">2</span><span class="b" data-i18n="mac_s2">앱을 처음 실행하면 아래 안내창이 뜹니다. <b>설정 열기</b>를 누르세요. 키보드·마우스의 <b>횟수만</b> 집계하며, 무엇을 눌렀는지는 기록하지 않습니다.</span></div>
+          <figure class="shot pop"><img src="assets/install/mac-2-popup.jpg" alt="접근성 권한이 필요하다는 안내창"><figcaption data-i18n="cap2">‘설정 열기’를 누르세요</figcaption></figure>
+        </li>
+        <li class="gstep">
+          <div class="step"><span class="n">3</span><span class="b" data-i18n="mac_s3">시스템 설정의 <b>손쉬운 사용</b>이 열립니다. 목록에 보이는 <b>BossMascot</b>이 눈치상사입니다(앱의 내부 이름). 그 <b>토글을 켜세요.</b></span></div>
+          <figure class="shot"><img src="assets/install/mac-3-access-off.jpg" alt="손쉬운 사용 목록의 BossMascot, 토글이 꺼진 상태"><figcaption data-i18n="cap3">목록의 BossMascot — 아직 꺼져 있어요</figcaption></figure>
+        </li>
+        <li class="gstep">
+          <div class="step"><span class="n">4</span><span class="b" data-i18n="mac_s4">토글을 켜면 Mac <b>암호</b>를 물어봅니다. 암호를 입력하고 <b>설정 수정</b>을 누르세요.</span></div>
+          <figure class="shot"><img src="assets/install/mac-4-password.jpg" alt="암호를 입력하라는 시스템 설정 창"><figcaption data-i18n="cap4">암호 입력 후 ‘설정 수정’</figcaption></figure>
+        </li>
+        <li class="gstep">
+          <div class="step"><span class="n">5</span><span class="b" data-i18n="mac_s5">토글이 <b>파랗게 켜지면</b> 권한 설정이 끝났습니다.</span></div>
+          <figure class="shot"><img src="assets/install/mac-5-access-on.jpg" alt="BossMascot 토글이 켜진(파란) 상태"><figcaption data-i18n="cap5">토글이 켜졌습니다 — 권한 허용 완료</figcaption></figure>
+        </li>
+        <li class="gstep">
+          <div class="step"><span class="n">6</span><span class="b" data-i18n="mac_s6"><b>완료!</b> 상사가 화면 구석에 나타납니다. 트레이 아이콘 → <b>설정…</b>에서 캐릭터·이름·크기·위치를 바꿀 수 있어요. 화나서 두드릴수록 굽신거립니다.</span></div>
+          <figure class="shot"><img src="assets/install/mac-6-settings.jpg" alt="눈치상사 설정 창"><figcaption data-i18n="cap6">설정 창에서 상사를 마음대로 꾸며보세요</figcaption></figure>
+        </li>
+      </ol>
 
       <div class="faq">
         <b data-i18n="mac_faq_t">혹시 안 열리나요?</b><br>
@@ -178,9 +203,17 @@
     tab_mac:'🍎 macOS', tab_win:'🪟 Windows',
     mac_dl:'Download for macOS', mac_meta:'.dmg · Apple Silicon only · macOS 14+',
     mac_s1:'Open the <b>.dmg</b> and drag NunchiBoss into your <b>Applications</b> folder.',
-    mac_s2:'On first launch, enable NunchiBoss under <b>System Settings › Privacy & Security › Accessibility</b>. It appears in the list as <b>BossMascot</b>, its internal name. It only counts keystrokes and clicks — it never records <i>what</i> you type.',
-    mac_s3:'Done. The boss appears in the corner and grovels harder the angrier you type.',
-    shot_mac:'NunchiBoss enabled under Accessibility',
+    mac_s2:'The first time you launch it, this dialog appears. Click <b>Open Settings</b>. The app only counts your keystrokes and clicks — it never records <i>what</i> you type.',
+    mac_s3:'System Settings opens to <b>Accessibility</b>. <b>BossMascot</b> in the list is NunchiBoss (its internal name). Flip its <b>toggle on</b>.',
+    mac_s4:'When you turn it on, macOS asks for your <b>password</b>. Enter it and click <b>Modify Settings</b>.',
+    mac_s5:'Once the toggle turns <b>blue</b>, the permission is granted.',
+    mac_s6:'<b>All done!</b> The boss appears in the corner. Use the tray icon → <b>Settings…</b> to change character, name, size and position. It grovels harder the angrier you type.',
+    cap1:'Drag NunchiBoss into Applications',
+    cap2:'Click “Open Settings”',
+    cap3:'BossMascot in the list — still off',
+    cap4:'Enter your password, then “Modify Settings”',
+    cap5:'Toggle is on — permission granted',
+    cap6:'Dress up your boss in Settings',
     shot_win:'Click "More info" to reveal the "Run anyway" button',
     mac_faq_t:'Won\'t it open?',
     mac_faq_b:'The app is <b>Apple-signed & notarized</b>, so it opens with no workaround. If it\'s still blocked, <b>Control-click → Open</b>. Intel Macs are not supported (Apple Silicon only).',
