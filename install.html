@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>다운로드 & 설치 — 눈치상사</title>
+<meta name="description" content="눈치상사 다운로드와 설치 방법. macOS·Windows.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --bg-soft:#F6F4F0; --ink:#202124; --ink-soft:#5F6368;
+    --line:#E4E1DC; --accent:#FF5A3C; --accent-dark:#E03E20; --navy:#2F3A56;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Gowun Dodum',sans-serif; background:var(--bg); color:var(--ink); line-height:1.6}
+  h1,h2,.jua{font-family:'Jua',sans-serif; font-weight:400}
+  a{color:var(--accent-dark)}
+  nav{display:flex; align-items:center; gap:20px; padding:16px 32px; border-bottom:1px solid var(--line)}
+  .logo{font-family:'Jua'; font-size:1.3rem; text-decoration:none; color:var(--ink)}
+  .nav-spacer{flex:1}
+  .lang-btn{background:none;border:none;cursor:pointer;font-family:'Jua';font-size:.9rem;color:var(--ink-soft);padding:6px 12px;border-radius:999px}
+  .lang-btn.active{color:var(--accent-dark)}
+  .wrap{max-width:600px; margin:0 auto; padding:44px 24px 80px}
+  h1{font-size:clamp(1.5rem,4vw,2.1rem); text-align:center; margin-bottom:6px}
+  .sub{text-align:center; color:var(--ink-soft); margin-bottom:26px}
+
+  /* OS 전환 탭 */
+  .os-tabs{display:flex; gap:8px; justify-content:center; margin-bottom:28px}
+  .os-tab{font-family:'Jua'; font-size:.95rem; color:var(--ink-soft); background:var(--bg-soft);
+    border:1.5px solid var(--line); border-radius:999px; padding:8px 20px; cursor:pointer; transition:.12s}
+  .os-tab.active{color:#fff; background:var(--accent); border-color:var(--accent)}
+
+  /* 다운로드 버튼 */
+  .dl{display:flex; flex-direction:column; align-items:center; gap:10px; margin-bottom:8px}
+  .dl-btn{
+    display:inline-flex; align-items:center; gap:12px; font-family:'Jua'; font-size:1.2rem;
+    background:var(--accent); color:#fff; text-decoration:none;
+    padding:16px 40px; border-radius:999px; box-shadow:0 5px 0 var(--accent-dark);
+    transition:transform .12s, box-shadow .12s;
+  }
+  .dl-btn:hover{transform:translateY(-2px)}
+  .dl-btn:active{transform:translateY(3px); box-shadow:0 2px 0 var(--accent-dark)}
+  .dl-btn.disabled{background:var(--ink-soft); box-shadow:none; cursor:default; pointer-events:none; opacity:.7}
+  .dl-meta{font-size:.85rem; color:var(--ink-soft)}
+
+  /* 단계 */
+  .steps{margin-top:30px; counter-reset:step}
+  .step{display:flex; gap:14px; margin-bottom:16px}
+  .step .n{flex-shrink:0; width:28px; height:28px; border-radius:50%; background:var(--accent); color:#fff;
+    font-family:'Jua'; font-size:.9rem; display:flex; align-items:center; justify-content:center}
+  .step .b{font-size:.94rem}
+  .step .b b{font-family:'Jua'; font-weight:400}
+
+  /* 경고 안내 박스 */
+  .callout{background:#FFF8E6; border:1.5px solid #FFE08A; border-radius:12px; padding:14px 16px; margin:22px 0; font-size:.88rem}
+  .callout b{font-family:'Jua'; font-weight:400}
+
+  .faq{background:var(--bg-soft); border-radius:12px; padding:14px 16px; font-size:.82rem; color:var(--ink-soft); margin-top:8px}
+  .faq b{color:var(--ink); font-family:'Jua'; font-weight:400}
+
+  .coming{text-align:center; background:var(--bg-soft); border-radius:16px; padding:28px 20px; margin-bottom:8px}
+  .coming .big{font-family:'Jua'; font-size:1.15rem; margin-bottom:8px}
+  .coming p{font-size:.9rem; color:var(--ink-soft); margin-bottom:18px}
+  .vote-btn{display:inline-flex; align-items:center; gap:8px; font-family:'Jua'; font-size:1rem;
+    background:var(--accent); color:#fff; text-decoration:none; padding:12px 26px; border-radius:999px; box-shadow:0 4px 0 var(--accent-dark)}
+
+  .back{display:block; text-align:center; margin-top:34px; text-decoration:none; font-family:'Jua'}
+  [hidden]{display:none !important}
+</style>
+</head>
+<body>
+  <nav>
+    <a class="logo" href="./index.html">눈치상사</a>
+    <span class="nav-spacer"></span>
+    <button class="lang-btn active" data-lang="ko">KO</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </nav>
+
+  <div class="wrap">
+    <h1 data-i18n="h1">다운로드 & 설치</h1>
+    <p class="sub" data-i18n="sub">1분이면 상사를 화면에 앉힐 수 있습니다.</p>
+
+    <div class="os-tabs">
+      <button class="os-tab" data-os="mac" data-i18n="tab_mac">🍎 macOS</button>
+      <button class="os-tab" data-os="win" data-i18n="tab_win">🪟 Windows</button>
+    </div>
+
+    <!-- ===== macOS ===== -->
+    <section id="mac">
+      <div class="dl">
+        <a class="dl-btn" id="macDl" href="#">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+          <span data-i18n="mac_dl">macOS용 다운로드</span>
+        </a>
+        <span class="dl-meta" data-i18n="mac_meta">.dmg · Apple Silicon 전용 · macOS 14+</span>
+      </div>
+
+      <div class="steps">
+        <div class="step"><span class="n">1</span><span class="b" data-i18n="mac_s1">받은 <b>.dmg</b>를 열고, 눈치상사를 <b>응용 프로그램</b> 폴더로 드래그하세요.</span></div>
+        <div class="step"><span class="n">2</span><span class="b" data-i18n="mac_s2">처음 실행하면 <b>시스템 설정 › 개인정보 보호 및 보안 › 손쉬운 사용</b>에서 눈치상사를 켜주세요. 키보드·마우스의 <b>횟수만</b> 감지하며, 무엇을 눌렀는지는 기록하지 않습니다.</span></div>
+        <div class="step"><span class="n">3</span><span class="b" data-i18n="mac_s3">끝났습니다. 상사가 화면 구석에 나타납니다. 화나서 두드릴수록 굽신거립니다.</span></div>
+      </div>
+
+      <div class="faq">
+        <b data-i18n="mac_faq_t">혹시 안 열리나요?</b><br>
+        <span data-i18n="mac_faq_b">이 앱은 <b>Apple 서명·공증</b>을 받아 별도 우회 없이 열립니다. 그래도 막히면 앱을 <b>Control-클릭 → 열기</b>. Intel Mac은 지원하지 않습니다(Apple Silicon 전용).</span>
+      </div>
+    </section>
+
+    <!-- ===== Windows ===== -->
+    <section id="win" hidden>
+      <!-- 다운로드가 준비되면 표시. WIN_DOWNLOAD_URL이 설정되면 JS가 이 블록을 켠다 -->
+      <div id="winReady" hidden>
+        <div class="dl">
+          <a class="dl-btn" id="winDl" href="#">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+            <span data-i18n="win_dl">Windows용 다운로드</span>
+          </a>
+          <span class="dl-meta" data-i18n="win_meta">.exe · Windows 10/11 · 64-bit</span>
+        </div>
+
+        <div class="callout">
+          <b data-i18n="win_warn_t">⚠️ "Windows의 PC 보호" 파란 창이 뜨면 (정상입니다)</b><br>
+          <span data-i18n="win_warn_b">아직 <b>서명 전</b>이라 뜨는 경고입니다. 바이러스가 아닙니다 — 창에서 <b>추가 정보</b>를 누른 뒤 <b>실행</b>을 누르면 됩니다.</span>
+        </div>
+
+        <div class="steps">
+          <div class="step"><span class="n">1</span><span class="b" data-i18n="win_s1">받은 <b>설치 파일</b>을 실행합니다.</span></div>
+          <div class="step"><span class="n">2</span><span class="b" data-i18n="win_s2">파란 경고 창이 뜨면 <b>추가 정보 → 실행</b> (위 안내 참고).</span></div>
+          <div class="step"><span class="n">3</span><span class="b" data-i18n="win_s3">설치가 끝나면 상사가 화면 구석에 나타납니다.</span></div>
+        </div>
+
+        <div class="faq">
+          <b data-i18n="win_faq_t">왜 경고가 뜨나요?</b><br>
+          <span data-i18n="win_faq_b">개별 개발자용 Windows 코드서명은 비용·심사 문제로 아직 준비 중입니다. 다운로드가 늘면 경고는 점차 사라지며, 소스 공개 후 <b>무료 서명(SignPath)</b> 도입도 검토 중입니다. 앱은 여전히 키 입력 내용을 기록하거나 외부로 전송하지 않습니다.</span>
+        </div>
+      </div>
+
+      <!-- 아직 미출시 상태 (기본) -->
+      <div id="winSoon">
+        <div class="coming">
+          <div class="big" data-i18n="win_soon_t">🪟 Windows 버전은 준비 중입니다</div>
+          <p data-i18n="win_soon_b">지금은 macOS만 나와 있습니다. 원하시면 관심을 등록해주세요 — 수요가 모이면 우선 개발합니다.</p>
+          <a class="vote-btn" href="./waitlist.html"><span>👍</span><span data-i18n="win_soon_btn">Windows 관심 등록</span></a>
+        </div>
+      </div>
+    </section>
+
+    <a class="back" href="./index.html" data-i18n="back">← 눈치상사로 돌아가기</a>
+  </div>
+
+<script>
+  // ===== 설정 =====
+  const MAC_DOWNLOAD_URL = 'https://github.com/King1cell/boss-mascot-releases/releases/download/v0.3.0/boss-mascot-0.3.0-mac-arm64.dmg';
+  // ⚠️ Windows exe가 릴리스에 올라가면 이 값만 실제 URL로 교체하면 다운로드가 켜진다. null이면 "준비 중".
+  const WIN_DOWNLOAD_URL = null;
+
+  const EN = {
+    h1:'Download & Install', sub:'One minute to put the boss in the corner of your screen.',
+    tab_mac:'🍎 macOS', tab_win:'🪟 Windows',
+    mac_dl:'Download for macOS', mac_meta:'.dmg · Apple Silicon only · macOS 14+',
+    mac_s1:'Open the <b>.dmg</b> and drag NunchiBoss into your <b>Applications</b> folder.',
+    mac_s2:'On first launch, enable NunchiBoss under <b>System Settings › Privacy & Security › Accessibility</b>. It only counts keystrokes and clicks — it never records <i>what</i> you type.',
+    mac_s3:'Done. The boss appears in the corner and grovels harder the angrier you type.',
+    mac_faq_t:'Won\'t it open?',
+    mac_faq_b:'The app is <b>Apple-signed & notarized</b>, so it opens with no workaround. If it\'s still blocked, <b>Control-click → Open</b>. Intel Macs are not supported (Apple Silicon only).',
+    win_dl:'Download for Windows', win_meta:'.exe · Windows 10/11 · 64-bit',
+    win_warn_t:'⚠️ If a blue "Windows protected your PC" screen appears (this is normal)',
+    win_warn_b:'It shows because the app isn\'t code-signed <b>yet</b>. It is not a virus — click <b>More info</b>, then <b>Run anyway</b>.',
+    win_s1:'Run the <b>installer</b> you downloaded.',
+    win_s2:'If the blue warning appears, <b>More info → Run anyway</b> (see above).',
+    win_s3:'After install, the boss appears in the corner of your screen.',
+    win_faq_t:'Why the warning?',
+    win_faq_b:'Windows code signing for individual developers is still pending (cost and validation). Warnings fade as downloads grow, and we\'re looking at <b>free signing (SignPath)</b> after open-sourcing. The app still never records or transmits what you type.',
+    win_soon_t:'🪟 The Windows version is on the way',
+    win_soon_b:'Only macOS is out right now. Register your interest — if enough people want it, we build it next.',
+    win_soon_btn:'Register interest',
+    back:'← Back to NunchiBoss'
+  };
+  const KO = {};
+  document.querySelectorAll('[data-i18n]').forEach(el=>KO[el.dataset.i18n]=el.innerHTML);
+  const TITLES={ko:document.title, en:'Download & Install — NunchiBoss'};
+  let lang = localStorage.getItem('sajoe_lang') || 'ko';
+  const t = k => (lang==='en' && EN[k]!==undefined) ? EN[k] : KO[k];
+  function setLang(l){
+    lang=l; localStorage.setItem('sajoe_lang',l); document.documentElement.lang=l;
+    document.title=TITLES[l]||TITLES.ko;
+    document.querySelectorAll('[data-i18n]').forEach(el=>{ el.innerHTML = t(el.dataset.i18n); });
+    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));
+  }
+  document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+
+  // 다운로드 링크 세팅
+  document.getElementById('macDl').href = MAC_DOWNLOAD_URL;
+  if(WIN_DOWNLOAD_URL){
+    document.getElementById('winDl').href = WIN_DOWNLOAD_URL;
+    document.getElementById('winReady').hidden = false;
+    document.getElementById('winSoon').hidden = true;
+  }
+
+  // OS 선택: ?os= 파라미터 우선, 없으면 자동 감지
+  function detectOS(){
+    const p = new URLSearchParams(location.search).get('os');
+    if(p === 'mac' || p === 'win') return p;
+    const ua = navigator.userAgent || '';
+    if(/Win/i.test(ua)) return 'win';
+    return 'mac'; // 기본은 macOS(현재 출시 플랫폼)
+  }
+  function showOS(os){
+    document.getElementById('mac').hidden = (os !== 'mac');
+    document.getElementById('win').hidden = (os !== 'win');
+    document.querySelectorAll('.os-tab').forEach(b=>b.classList.toggle('active', b.dataset.os===os));
+    try{ history.replaceState(null,'', '?os='+os); }catch(_){}
+  }
+  document.querySelectorAll('.os-tab').forEach(b=>b.addEventListener('click',()=>showOS(b.dataset.os)));
+
+  if(lang!=='ko') setLang(lang);
+  showOS(detectOS());
+</script>
+</body>
+</html>
