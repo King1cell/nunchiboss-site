@@ -57,8 +57,10 @@
   .callout{background:#FFF8E6; border:1.5px solid #FFE08A; border-radius:12px; padding:14px 16px; margin:22px 0; font-size:.88rem}
   .callout b{font-family:'Jua'; font-weight:400}
 
-  /* 안내 스크린샷 — 이미지 파일이 없으면 JS가 숨긴다(페이지가 안 깨지게) */
-  .shot{margin:20px 0}
+  /* 안내 스크린샷 — 기본은 숨김. 이미지가 실제로 로드되면 JS가 .ready를 붙여 보여준다
+     (파일이 없으면 계속 숨김 → 깨진 이미지·레이아웃 깨짐 없음) */
+  .shot{margin:20px 0; display:none}
+  .shot.ready{display:block}
   .shot img{width:100%; height:auto; display:block; border:1.5px solid var(--line); border-radius:12px}
   .shot figcaption{margin-top:8px; font-size:.8rem; color:var(--ink-soft); text-align:center}
   .faq{background:var(--bg-soft); border-radius:12px; padding:14px 16px; font-size:.82rem; color:var(--ink-soft); margin-top:8px}
@@ -232,11 +234,11 @@
   }
   document.querySelectorAll('.os-tab').forEach(b=>b.addEventListener('click',()=>showOS(b.dataset.os)));
 
-  // 스크린샷 파일이 아직 없으면 슬롯을 숨긴다(깨진 이미지 아이콘 방지). 파일을 넣으면 자동으로 뜬다.
+  // 스크린샷 슬롯은 기본 숨김. 이미지가 실제로 로드될 때만 보여준다(파일 넣으면 자동으로 뜸).
   document.querySelectorAll('.shot img').forEach(img=>{
-    const hide = () => { const f = img.closest('.shot'); if(f) f.style.display='none'; };
-    img.addEventListener('error', hide);
-    if(img.complete && img.naturalWidth === 0) hide(); // 스크립트 실행 전 이미 로드 실패한 경우
+    const show = () => { const f = img.closest('.shot'); if(f) f.classList.add('ready'); };
+    img.addEventListener('load', show);
+    if(img.complete && img.naturalWidth > 0) show(); // 스크립트 실행 전 이미 로드된 경우
   });
 
   if(lang!=='ko') setLang(lang);
