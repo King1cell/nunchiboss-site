@@ -375,9 +375,9 @@
       </a>
     </div>
 
-    <!-- 데모 영상: website/assets/demo.mp4 를 커밋하면 자동으로 나타난다 -->
+    <!-- 데모 영상: demo.mp4 → demo2.mp4 순환 재생. 파일이 없으면 슬롯 자체가 숨겨진다 -->
     <figure class="demo-slot" id="demoSlot">
-      <video src="assets/demo.mp4" autoplay muted loop playsinline aria-label="눈치상사 데모 영상 — 키보드를 두드리면 상사가 사과합니다"></video>
+      <video src="assets/demo.mp4" autoplay muted playsinline aria-label="눈치상사 데모 영상 — 키보드를 두드리면 상사가 사과합니다"></video>
     </figure>
 
     <div class="plat-notes">
@@ -608,12 +608,24 @@
   const isMac = /Mac|iPhone|iPad/i.test(navigator.platform || '') || /Mac OS X/i.test(navigator.userAgent || '');
   document.getElementById('dlBtn').href = isMac ? REL.mac : REL.win;
 
-  // 데모 영상: 파일이 실제로 로드될 때만 슬롯 표시 (파일이 없으면 계속 숨김)
+  // 데모 영상: 파일이 실제로 로드될 때만 슬롯 표시 (파일이 없으면 계속 숨김).
+  // 여러 클립을 번갈아 재생 — 한 편이 끝나면 다음 편으로 넘어가고 다시 처음으로.
+  // 두 번째 클립이 없으면(404) 첫 클립 무한 반복으로 폴백한다.
   (function(){
     const slot = document.getElementById('demoSlot');
     if(!slot) return;
     const v = slot.querySelector('video');
+    const clips = ['assets/demo.mp4', 'assets/demo2.mp4'];
+    let i = 0;
     v.addEventListener('loadeddata', ()=>slot.classList.add('ready'));
+    v.addEventListener('ended', ()=>{
+      i = (i + 1) % clips.length;
+      v.src = clips[i];
+      v.play().catch(()=>{});
+    });
+    v.addEventListener('error', ()=>{
+      if(i !== 0){ i = 0; v.src = clips[0]; v.loop = true; v.play().catch(()=>{}); }
+    });
     if(v.readyState >= 2) slot.classList.add('ready');
   })();
 
