@@ -2,6 +2,8 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; media-src 'self'; connect-src 'self' https://nunchiboss-contact.theking1cell.workers.dev https://nunchiboss-waitlist.theking1cell.workers.dev https://cloudflareinsights.com https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; form-action 'self'; object-src 'none'; base-uri 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>다운로드 & 설치 — 눈치상사(NunchiBoss)</title>
 <meta name="description" content="눈치상사 다운로드와 설치 방법. macOS·Windows.">
@@ -16,82 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#FFFFFF; --bg-soft:#F6F4F0; --ink:#202124; --ink-soft:#5F6368;
-    --line:#E4E1DC; --accent:#FF5A3C; --accent-dark:#E03E20; --navy:#2F3A56;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Gowun Dodum',sans-serif; background:var(--bg); color:var(--ink); line-height:1.6}
-  h1,h2,.jua{font-family:'Jua',sans-serif; font-weight:400}
-  a{color:var(--accent-dark)}
-  nav{display:flex; align-items:center; gap:20px; padding:16px 32px; border-bottom:1px solid var(--line)}
-  .logo{font-family:'Jua'; font-size:1.3rem; text-decoration:none; color:var(--ink)}
-  .nav-spacer{flex:1}
-  .lang-btn{background:none;border:none;cursor:pointer;font-family:'Jua';font-size:.9rem;color:var(--ink-soft);padding:6px 12px;border-radius:999px}
-  .lang-btn.active{color:var(--accent-dark)}
-  .wrap{max-width:600px; margin:0 auto; padding:44px 24px 80px}
-  h1{font-size:clamp(1.5rem,4vw,2.1rem); text-align:center; margin-bottom:6px}
-  .sub{text-align:center; color:var(--ink-soft); margin-bottom:26px}
-
-  /* OS 전환 탭 */
-  .os-tabs{display:flex; gap:8px; justify-content:center; margin-bottom:28px}
-  .os-tab{font-family:'Jua'; font-size:.95rem; color:var(--ink-soft); background:var(--bg-soft);
-    border:1.5px solid var(--line); border-radius:999px; padding:8px 20px; cursor:pointer; transition:.12s}
-  .os-tab.active{color:#fff; background:var(--accent); border-color:var(--accent)}
-
-  /* 다운로드 버튼 */
-  .dl{display:flex; flex-direction:column; align-items:center; gap:10px; margin-bottom:8px}
-  .dl-btn{
-    display:inline-flex; align-items:center; gap:12px; font-family:'Jua'; font-size:1.2rem;
-    background:var(--accent); color:#fff; text-decoration:none;
-    padding:16px 40px; border-radius:999px; box-shadow:0 5px 0 var(--accent-dark);
-    transition:transform .12s, box-shadow .12s;
-  }
-  .dl-btn:hover{transform:translateY(-2px)}
-  .dl-btn:active{transform:translateY(3px); box-shadow:0 2px 0 var(--accent-dark)}
-  .dl-btn.disabled{background:var(--ink-soft); box-shadow:none; cursor:default; pointer-events:none; opacity:.7}
-  .dl-meta{font-size:.85rem; color:var(--ink-soft)}
-
-  /* 단계 */
-  .steps{margin-top:30px; counter-reset:step}
-  .step{display:flex; gap:14px; margin-bottom:16px}
-  .step .n{flex-shrink:0; width:28px; height:28px; border-radius:50%; background:var(--accent); color:#fff;
-    font-family:'Jua'; font-size:.9rem; display:flex; align-items:center; justify-content:center}
-  .step .b{font-size:.94rem}
-  .step .b b{font-family:'Jua'; font-weight:400}
-
-  /* 스크린샷이 딸린 단계 가이드 (macOS) */
-  .gsteps{list-style:none; margin-top:30px}
-  .gstep{margin-bottom:30px}
-  .gstep .step{margin-bottom:12px}
-  .gstep .shot{margin:0 0 0 42px}
-  @media (max-width:480px){ .gstep .shot{margin-left:0} }
-  /* 작은 안내창 캡처는 늘리지 않고 원본 크기로 가운데 정렬 (업스케일 흐림 방지) */
-  .shot.pop img{width:auto; max-width:min(100%,360px); margin-inline:auto}
-
-  /* 경고 안내 박스 */
-  .callout{background:#FFF8E6; border:1.5px solid #FFE08A; border-radius:12px; padding:14px 16px; margin:22px 0; font-size:.88rem}
-  .callout b{font-family:'Jua'; font-weight:400}
-
-  /* 안내 스크린샷 — 기본은 숨김. 이미지가 실제로 로드되면 JS가 .ready를 붙여 보여준다
-     (파일이 없으면 계속 숨김 → 깨진 이미지·레이아웃 깨짐 없음) */
-  .shot{margin:20px 0; display:none}
-  .shot.ready{display:block}
-  .shot img{width:100%; height:auto; display:block; border:1.5px solid var(--line); border-radius:12px}
-  .shot figcaption{margin-top:8px; font-size:.8rem; color:var(--ink-soft); text-align:center}
-  .faq{background:var(--bg-soft); border-radius:12px; padding:14px 16px; font-size:.82rem; color:var(--ink-soft); margin-top:8px}
-  .faq b{color:var(--ink); font-family:'Jua'; font-weight:400}
-
-  .coming{text-align:center; background:var(--bg-soft); border-radius:16px; padding:28px 20px; margin-bottom:8px}
-  .coming .big{font-family:'Jua'; font-size:1.15rem; margin-bottom:8px}
-  .coming p{font-size:.9rem; color:var(--ink-soft); margin-bottom:18px}
-  .vote-btn{display:inline-flex; align-items:center; gap:8px; font-family:'Jua'; font-size:1rem;
-    background:var(--accent); color:#fff; text-decoration:none; padding:12px 26px; border-radius:999px; box-shadow:0 4px 0 var(--accent-dark)}
-
-  .back{display:block; text-align:center; margin-top:34px; text-decoration:none; font-family:'Jua'}
-  [hidden]{display:none !important}
-</style>
+<link rel="stylesheet" href="assets/css/install.css">
 </head>
 <body>
   <nav>
@@ -212,97 +139,7 @@
     <a class="back" href="./index.html" data-i18n="back">← 눈치상사로 돌아가기</a>
   </div>
 
-<script>
-  // ===== 설정 =====
-  const MAC_DOWNLOAD_URL = 'https://github.com/King1cell/boss-mascot-releases/releases/download/v0.4.0/boss-mascot-0.4.0-mac-arm64.dmg';
-  // ⚠️ Windows exe가 릴리스에 올라가면 이 값만 실제 URL로 교체하면 다운로드가 켜진다. null이면 "준비 중".
-  const WIN_DOWNLOAD_URL = 'https://github.com/King1cell/boss-mascot-releases/releases/download/v0.4.0/boss-mascot-0.4.0-win-x64.exe';
-
-  const EN = {
-    h1:'Download & Install', sub:'One minute to put the boss in the corner of your screen.',
-    tab_mac:'🍎 macOS', tab_win:'🪟 Windows',
-    mac_dl:'Download for macOS', mac_meta:'.dmg · Apple Silicon only · macOS 14+',
-    mac_s1:'Open the <b>.dmg</b> and drag NunchiBoss into your <b>Applications</b> folder.',
-    mac_s2:'The first time you launch it, this dialog appears. Click <b>Open Settings</b>. The app only counts your keystrokes and clicks — it never records <i>what</i> you type.',
-    mac_s3:'System Settings opens to <b>Accessibility</b>. <b>BossMascot</b> in the list is NunchiBoss (its internal name). Flip its <b>toggle on</b>.',
-    mac_s4:'When you turn it on, macOS asks for your <b>password</b>. Enter it and click <b>Modify Settings</b>.',
-    mac_s5:'Once the toggle turns <b>blue</b>, the permission is granted.',
-    mac_s6:'<b>All done!</b> The boss appears in the corner. Use the tray icon → <b>Settings…</b> to change character, name, size and position. It grovels harder the angrier you type.',
-    cap1:'Drag NunchiBoss into Applications',
-    cap2:'Click “Open Settings”',
-    cap3:'BossMascot in the list — still off',
-    cap4:'Enter your password, then “Modify Settings”',
-    cap5:'Toggle is on — permission granted',
-    cap6:'Dress up your boss in Settings',
-    mac_faq_t:'Won\'t it open?',
-    mac_faq_b:'The app is <b>Apple-signed & notarized</b>, so it opens with no workaround. If it\'s still blocked, <b>Control-click → Open</b>. Intel Macs are not supported (Apple Silicon only).',
-    win_dl:'Download for Windows', win_meta:'.exe · Windows 10/11 · 64-bit',
-    win_warn_t:'⚠️ If a blue "Windows protected your PC" screen appears (this is normal)',
-    win_warn_b:'It shows because the app isn\'t code-signed <b>yet</b>. It is not a virus — click <b>More info</b>, then <b>Run anyway</b>.',
-    win_s1:'Run the <b>.exe</b> you downloaded. A blue <b>“Windows protected your PC”</b> screen appears — click <b>More info</b> on the left.',
-    win_s2:'A <b>Run anyway</b> button appears. Click it to start installing. The publisher showing as <b>“Unknown”</b> is just because it isn\'t signed yet — it\'s not a virus.',
-    win_s3:'The installer runs. Give it a moment.',
-    win_s4:'Once installed, the boss icon appears in the <b>system tray</b> (bottom-right). If you don\'t see it, click <b>∧</b> to show hidden icons.',
-    win_s5:'<b>All done!</b> <b>Right-click</b> the tray icon → <b>Settings…</b> to change character, name, size and position. It grovels harder the angrier you type.',
-    wcap1:'Click “More info”',
-    wcap2:'Click “Run anyway” to install',
-    wcap3:'The installer is running',
-    wcap4:'The boss icon in your tray',
-    wcap5:'Right-click → Settings… to customize',
-    win_faq_t:'Why the warning?',
-    win_faq_b:'Windows code signing for individual developers is still pending (cost and validation). Warnings fade as downloads grow, and we\'re looking at <b>free signing (SignPath)</b> after open-sourcing. The app still never records or transmits what you type.',
-    win_soon_t:'🪟 The Windows version is on the way',
-    win_soon_b:'Only macOS is out right now. Register your interest — if enough people want it, we build it next.',
-    win_soon_btn:'Register interest',
-    back:'← Back to NunchiBoss'
-  };
-  const KO = {};
-  document.querySelectorAll('[data-i18n]').forEach(el=>KO[el.dataset.i18n]=el.innerHTML);
-  const TITLES={ko:document.title, en:'Download & Install — NunchiBoss'};
-  let lang = localStorage.getItem('sajoe_lang') || 'ko';
-  const t = k => (lang==='en' && EN[k]!==undefined) ? EN[k] : KO[k];
-  function setLang(l){
-    lang=l; localStorage.setItem('sajoe_lang',l); document.documentElement.lang=l;
-    document.title=TITLES[l]||TITLES.ko;
-    document.querySelectorAll('[data-i18n]').forEach(el=>{ el.innerHTML = t(el.dataset.i18n); });
-    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));
-  }
-  document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
-
-  // 다운로드 링크 세팅
-  document.getElementById('macDl').href = MAC_DOWNLOAD_URL;
-  if(WIN_DOWNLOAD_URL){
-    document.getElementById('winDl').href = WIN_DOWNLOAD_URL;
-    document.getElementById('winReady').hidden = false;
-    document.getElementById('winSoon').hidden = true;
-  }
-
-  // OS 선택: ?os= 파라미터 우선, 없으면 자동 감지
-  function detectOS(){
-    const p = new URLSearchParams(location.search).get('os');
-    if(p === 'mac' || p === 'win') return p;
-    const ua = navigator.userAgent || '';
-    if(/Win/i.test(ua)) return 'win';
-    return 'mac'; // 기본은 macOS(현재 출시 플랫폼)
-  }
-  function showOS(os){
-    document.getElementById('mac').hidden = (os !== 'mac');
-    document.getElementById('win').hidden = (os !== 'win');
-    document.querySelectorAll('.os-tab').forEach(b=>b.classList.toggle('active', b.dataset.os===os));
-    try{ history.replaceState(null,'', '?os='+os); }catch(_){}
-  }
-  document.querySelectorAll('.os-tab').forEach(b=>b.addEventListener('click',()=>showOS(b.dataset.os)));
-
-  // 스크린샷 슬롯은 기본 숨김. 이미지가 실제로 로드될 때만 보여준다(파일 넣으면 자동으로 뜸).
-  document.querySelectorAll('.shot img').forEach(img=>{
-    const show = () => { const f = img.closest('.shot'); if(f) f.classList.add('ready'); };
-    img.addEventListener('load', show);
-    if(img.complete && img.naturalWidth > 0) show(); // 스크립트 실행 전 이미 로드된 경우
-  });
-
-  if(lang!=='ko') setLang(lang);
-  showOS(detectOS());
-</script>
+<script src="assets/js/install.js"></script>
 <!-- Cloudflare Web Analytics (쿠키리스·개인 미식별) --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "986360228b1944179cb950e820922b25"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
