@@ -57,6 +57,10 @@
   .callout{background:#FFF8E6; border:1.5px solid #FFE08A; border-radius:12px; padding:14px 16px; margin:22px 0; font-size:.88rem}
   .callout b{font-family:'Jua'; font-weight:400}
 
+  /* 안내 스크린샷 — 이미지 파일이 없으면 JS가 숨긴다(페이지가 안 깨지게) */
+  .shot{margin:20px 0}
+  .shot img{width:100%; height:auto; display:block; border:1.5px solid var(--line); border-radius:12px}
+  .shot figcaption{margin-top:8px; font-size:.8rem; color:var(--ink-soft); text-align:center}
   .faq{background:var(--bg-soft); border-radius:12px; padding:14px 16px; font-size:.82rem; color:var(--ink-soft); margin-top:8px}
   .faq b{color:var(--ink); font-family:'Jua'; font-weight:400}
 
@@ -103,6 +107,11 @@
         <div class="step"><span class="n">3</span><span class="b" data-i18n="mac_s3">끝났습니다. 상사가 화면 구석에 나타납니다. 화나서 두드릴수록 굽신거립니다.</span></div>
       </div>
 
+      <figure class="shot" id="shotMac">
+        <img src="assets/install/mac-accessibility.png" alt="시스템 설정의 손쉬운 사용에서 눈치상사를 켜는 화면" loading="lazy">
+        <figcaption data-i18n="shot_mac">손쉬운 사용에서 눈치상사를 켠 모습</figcaption>
+      </figure>
+
       <div class="faq">
         <b data-i18n="mac_faq_t">혹시 안 열리나요?</b><br>
         <span data-i18n="mac_faq_b">이 앱은 <b>Apple 서명·공증</b>을 받아 별도 우회 없이 열립니다. 그래도 막히면 앱을 <b>Control-클릭 → 열기</b>. Intel Mac은 지원하지 않습니다(Apple Silicon 전용).</span>
@@ -125,6 +134,11 @@
           <b data-i18n="win_warn_t">⚠️ "Windows의 PC 보호" 파란 창이 뜨면 (정상입니다)</b><br>
           <span data-i18n="win_warn_b">아직 <b>서명 전</b>이라 뜨는 경고입니다. 바이러스가 아닙니다 — 창에서 <b>추가 정보</b>를 누른 뒤 <b>실행</b>을 누르면 됩니다.</span>
         </div>
+
+        <figure class="shot" id="shotWin">
+          <img src="assets/install/win-smartscreen.png" alt="Windows SmartScreen 경고에서 추가 정보를 눌러 실행하는 화면" loading="lazy">
+          <figcaption data-i18n="shot_win">"추가 정보"를 누르면 "실행" 버튼이 나옵니다</figcaption>
+        </figure>
 
         <div class="steps">
           <div class="step"><span class="n">1</span><span class="b" data-i18n="win_s1">받은 <b>설치 파일</b>을 실행합니다.</span></div>
@@ -164,6 +178,8 @@
     mac_s1:'Open the <b>.dmg</b> and drag NunchiBoss into your <b>Applications</b> folder.',
     mac_s2:'On first launch, enable NunchiBoss under <b>System Settings › Privacy & Security › Accessibility</b>. It only counts keystrokes and clicks — it never records <i>what</i> you type.',
     mac_s3:'Done. The boss appears in the corner and grovels harder the angrier you type.',
+    shot_mac:'NunchiBoss enabled under Accessibility',
+    shot_win:'Click "More info" to reveal the "Run anyway" button',
     mac_faq_t:'Won\'t it open?',
     mac_faq_b:'The app is <b>Apple-signed & notarized</b>, so it opens with no workaround. If it\'s still blocked, <b>Control-click → Open</b>. Intel Macs are not supported (Apple Silicon only).',
     win_dl:'Download for Windows', win_meta:'.exe · Windows 10/11 · 64-bit',
@@ -215,6 +231,13 @@
     try{ history.replaceState(null,'', '?os='+os); }catch(_){}
   }
   document.querySelectorAll('.os-tab').forEach(b=>b.addEventListener('click',()=>showOS(b.dataset.os)));
+
+  // 스크린샷 파일이 아직 없으면 슬롯을 숨긴다(깨진 이미지 아이콘 방지). 파일을 넣으면 자동으로 뜬다.
+  document.querySelectorAll('.shot img').forEach(img=>{
+    const hide = () => { const f = img.closest('.shot'); if(f) f.style.display='none'; };
+    img.addEventListener('error', hide);
+    if(img.complete && img.naturalWidth === 0) hide(); // 스크립트 실행 전 이미 로드 실패한 경우
+  });
 
   if(lang!=='ko') setLang(lang);
   showOS(detectOS());
